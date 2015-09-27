@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    compile 'jp.techblog.epsiloncode:soundpoolwrapper:0.0.2'
+    compile 'jp.techblog.epsiloncode:soundpoolwrapper:0.0.1'
 }
 ```
 
