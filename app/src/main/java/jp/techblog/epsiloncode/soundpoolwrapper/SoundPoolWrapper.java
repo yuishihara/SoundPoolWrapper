@@ -86,6 +86,7 @@ public class SoundPoolWrapper implements SoundPool.OnLoadCompleteListener {
 
         mResourceIdToSoundIdMap.clear();
         mResourceIdToCallbackMap.clear();
+        mLoadedResourceIds.clear();
     }
 
     public void resume(int streamId) {
@@ -114,6 +115,8 @@ public class SoundPoolWrapper implements SoundPool.OnLoadCompleteListener {
 
     public void unload(int resourceId) {
         mSoundPool.unload(mResourceIdToSoundIdMap.get(resourceId));
+        mResourceIdToSoundIdMap.delete(resourceId);
+        mLoadedResourceIds.remove((Integer)resourceId);
     }
 
     public boolean isLoaded(int resourceId) {
