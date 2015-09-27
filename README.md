@@ -7,7 +7,8 @@ Enables using SoundPool without taking care of soundId.
 
 ## Features
 
-- Use resourceId to play sounds
+- No need to care of soundId. Just use resourceId to load/play sounds
+- Can check whether sound specified by resourceId is loaded or not
 - Convenience callback to know when the resource is finished loading
 
 ## Usage
