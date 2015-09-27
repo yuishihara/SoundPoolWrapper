@@ -4,7 +4,9 @@ import android.content.Context;
 import android.media.SoundPool;
 import android.util.SparseIntArray;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +19,7 @@ public class SoundPoolWrapper implements SoundPool.OnLoadCompleteListener {
 
     private SoundPool mSoundPool;
     private SparseIntArray mResourceIdToSoundIdMap = new SparseIntArray();
+    private List<Integer> mLoadedResourceIds = new ArrayList<>();
     private Map<Integer, OnLoadCompleteCallback> mResourceIdToCallbackMap = new HashMap<>();
 
     public SoundPoolWrapper(int maxStreams, int streamType, int srcQuality) {
@@ -51,6 +54,7 @@ public class SoundPoolWrapper implements SoundPool.OnLoadCompleteListener {
     @Override
     public void onLoadComplete(SoundPool soundPool, int soundId, int status) {
         int resourceId = toResourceId(soundId);
+        mLoadedResourceIds.add(resourceId);
         OnLoadCompleteCallback callback = mResourceIdToCallbackMap.get(resourceId);
         if (callback != null) {
             // Status 0 means success
@@ -110,6 +114,10 @@ public class SoundPoolWrapper implements SoundPool.OnLoadCompleteListener {
 
     public void unload(int resourceId) {
         mSoundPool.unload(mResourceIdToSoundIdMap.get(resourceId));
+    }
+
+    public boolean isLoaded(int resourceId) {
+        return mLoadedResourceIds.contains(resourceId);
     }
 
     private int toResourceId(int soundId) {
