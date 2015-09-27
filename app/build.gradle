@@ -11,10 +11,12 @@ buildscript {
 
 apply plugin: 'maven'
 
+def repo = new File(rootDir, "repository")
+
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository url: "file://${projectDir}/repository"
+            repository url: "file://${repo.absolutePath}"
             pom.groupId = 'jp.techblog.epsiloncode'
             pom.artifactId = 'soundpoolwrapper'
             pom.version = '0.0.1'
