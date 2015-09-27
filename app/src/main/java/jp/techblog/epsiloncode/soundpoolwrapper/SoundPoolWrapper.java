@@ -54,13 +54,13 @@ public class SoundPoolWrapper implements SoundPool.OnLoadCompleteListener {
     @Override
     public void onLoadComplete(SoundPool soundPool, int soundId, int status) {
         int resourceId = toResourceId(soundId);
+        mLoadedResourceIds.add(resourceId);
         OnLoadCompleteCallback callback = mResourceIdToCallbackMap.get(resourceId);
         if (callback != null) {
             // Status 0 means success
             callback.onLoadComplete(status == 0);
             mResourceIdToCallbackMap.remove(resourceId);
         }
-        mLoadedResourceIds.add(resourceId);
     }
 
     public void pause(int streamId) {
